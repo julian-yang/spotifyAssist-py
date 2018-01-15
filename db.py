@@ -14,6 +14,15 @@ conn = psycopg2.connect(
 
 cur = conn.cursor()
 
+def hello():
+    return 'hello world!'
+
 def fetchUser():
-    cur.execute("SELECT * from users")
-    return cur.fetchone()
+    try:
+        cur.execute("SELECT * from users")
+        user = cur.fetchone()
+        print("""user: {user}""".format(user=user), flush=True)
+        return user
+    except Exception as e:
+        print("""err: {err}""".format(err=e), flush=True)
+        return None 
